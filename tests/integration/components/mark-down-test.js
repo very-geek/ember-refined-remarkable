@@ -224,8 +224,8 @@ var foo = function (bar) {
 };
 
 console.log(foo(5));
-{{/mark-down}}
 \`\`\`
+{{/mark-down}}
   `);
 
   assert.ok(this.$(':first-child').find('.hljs-keyword').length > 0, 'highlightjs has been enabled');
@@ -238,9 +238,61 @@ var foo = function (bar) {
 };
 
 console.log(foo(5));
-{{/mark-down}}
 \`\`\`
+{{/mark-down}}
   `);
 
   assert.ok(this.$(':first-child').find('.hljs-keyword').length == 0, 'highlightjs has been disabled');
+});
+
+test('it renders htmlbars syntax as highlighted code properly', function(assert) {
+  this.render(hbs`
+{{#mark-down}}
+\`\`\` htmlbars
+\\{{link-to "Home" "application" class="link-item" tagName="li"}}
+\`\`\`
+{{/mark-down}}
+  `);
+
+  assert.equal(this.$('.language-htmlbars').text().trim(),
+    '{{link-to "Home" "application" class="link-item" tagName="li"}}',
+    'inline helper has been processed');
+
+  this.render(hbs`
+{{#mark-down}}
+\`\`\` htmlbars
+\\{{#link-to "application" class="link-item" tagName="li"}}
+Home
+\\{{/link-to}}
+\`\`\`
+{{/mark-down}}
+  `);
+
+  assert.equal(this.$('.language-htmlbars').text().trim(),
+`{{#link-to \"application\" class=\"link-item\" tagName=\"li\"}}
+Home
+{{/link-to}}`, 'block helper has been processed')
+
+  this.render(hbs`
+{{#mark-down}}
+\`\`\` htmlbars
+\\{{!-- comment --}}
+\`\`\`
+{{/mark-down}}
+  `);
+
+  assert.equal(this.$('.language-htmlbars').text().trim(),
+    '{{!-- comment --}}', 'comment helper has been processed')
+
+  this.render(hbs`
+{{#mark-down}}
+\`\`\` htmlbars
+&lt;button type=&quot;button&quot; class=\\{{name}}&gt;Button&lt;/button&gt;
+\`\`\`
+{{/mark-down}}
+  `);
+
+  assert.equal(this.$('.language-htmlbars').text().trim(),
+    '<button type="button" class={{name}}>Button</button>',
+    'html tag with curly brace has been processed');
 });

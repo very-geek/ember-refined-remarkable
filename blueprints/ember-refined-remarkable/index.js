@@ -1,7 +1,8 @@
 module.exports = {
   name: 'ember-refined-remarkable',
+  description: 'install remarkable and highlightjs through bower',
 
-  normalizeEntiryName() {},
+  normalizeEntityName() {},
 
   afterInstall() {
     return this.addBowerPackagesToProject([
