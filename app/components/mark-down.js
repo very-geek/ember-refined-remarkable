@@ -1,0 +1,1 @@
+export { default } from 'ember-refined-remarkable/components/mark-down';

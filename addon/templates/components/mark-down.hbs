@@ -1,0 +1,8 @@
+{{#unless hasBlock}}
+  <pre>
+    This component only support block rendering, inline rendering will be useless.
+    这个组件仅支持块级方式渲染，内联方式渲染将毫无作用。
+  </pre>
+{{else}}
+  {{yield}}
+{{/unless}}
