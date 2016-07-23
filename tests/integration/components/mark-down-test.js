@@ -5,85 +5,96 @@ moduleForComponent('mark-down', 'Integration | Component | mark down', {
   integration: true
 });
 
+test('it renders inline will shows a friendly warning', function(assert) {
+  this.render(hbs`{{mark-down}}`);
+
+  assert.equal(this.$(':first-child').find('pre > code').text(),
+    `This component only support block rendering, inline rendering will be useless.
+这个组件仅支持块级方式渲染，内联方式渲染将毫无作用。\n`,
+    'friendly warning has been shown');
+
+  console.log(this.$(':first-child')[0]);
+});
+
 test('it renders regular markdown document', function(assert) {
   this.render(hbs`
-{{#mark-down}}
-# h1 Heading
-## h2 Heading
-### h3 Heading
-#### h4 Heading
-##### h5 Heading
-###### h6 Heading
+  {{#mark-down}}
+  # h1 Heading
+  ## h2 Heading
+  ### h3 Heading
+  #### h4 Heading
+  ##### h5 Heading
+  ###### h6 Heading
 
-**This is bold text**
-__This is bold text__
-*This is italic text*
-_This is italic text_
-~~Deleted text~~
+  **This is bold text**
+  __This is bold text__
+  *This is italic text*
+  _This is italic text_
+  ~~Deleted text~~
 
-___
+  ___
 
-***
+  ***
 
-> Blockquotes can also be nested...
-> > ...by using additional greater-than signs right next to each other...
-> > > ...or with spaces between arrows.
+  > Blockquotes can also be nested...
+  > > ...by using additional greater-than signs right next to each other...
+  > > > ...or with spaces between arrows.
 
-+ Create a list by starting a line with '+', '-', or '*'
-+ Sub-lists are made by indenting 2 spaces:
-  - Marker character change forces new list start:
-    * Ac tristique libero volutpat at
-    + Facilisis in pretium nisl aliquet
-    - Nulla volutpat aliquam velit
-+ Very easy!
+  + Create a list by starting a line with '+', '-', or '*'
+  + Sub-lists are made by indenting 2 spaces:
+    - Marker character change forces new list start:
+      * Ac tristique libero volutpat at
+      + Facilisis in pretium nisl aliquet
+      - Nulla volutpat aliquam velit
+  + Very easy!
 
-1. Lorem ipsum dolor sit amet
-2. Consectetur adipiscing elit
-3. Integer molestie lorem at massa
+  1. Lorem ipsum dolor sit amet
+  2. Consectetur adipiscing elit
+  3. Integer molestie lorem at massa
 
-1. You can use sequential numbers...
-1. ...or keep all the numbers as '1.'
+  1. You can use sequential numbers...
+  1. ...or keep all the numbers as '1.'
 
-Inline \`code\`
+  Inline \`code\`
 
-    // Some comments
-    line 1 of code
-    line 2 of code
-    line 3 of code
+      // Some comments
+      line 1 of code
+      line 2 of code
+      line 3 of code
 
-\`\`\`
-Sample text here...
-\`\`\`
+  \`\`\`
+  Sample text here...
+  \`\`\`
 
-\`\`\` js
-var foo = function (bar) {
-  return bar++;
-};
+  \`\`\` js
+  var foo = function (bar) {
+    return bar++;
+  };
 
-console.log(foo(5));
-\`\`\`
+  console.log(foo(5));
+  \`\`\`
 
-| Option | Description |
-| ------ | ----------- |
-| data   | path to data files to supply the data that will be passed into templates. |
-| engine | engine to be used for processing templates. Handlebars is the default. |
-| ext    | extension to be used for dest files. |
+  | Option | Description |
+  | ------ | ----------- |
+  | data   | path to data files to supply the data that will be passed into templates. |
+  | engine | engine to be used for processing templates. Handlebars is the default. |
+  | ext    | extension to be used for dest files. |
 
-| Option | Description |
-| ------:| -----------:|
-| data   | path to data files to supply the data that will be passed into templates. |
-| engine | engine to be used for processing templates. Handlebars is the default. |
-| ext    | extension to be used for dest files. |
+  | Option | Description |
+  | ------:| -----------:|
+  | data   | path to data files to supply the data that will be passed into templates. |
+  | engine | engine to be used for processing templates. Handlebars is the default. |
+  | ext    | extension to be used for dest files. |
 
-[link text](http://dev.nodeca.com)
-[link with title](http://nodeca.github.io/pica/demo/ "title text!")
+  [link text](http://dev.nodeca.com)
+  [link with title](http://nodeca.github.io/pica/demo/ "title text!")
 
-![Minion](https://octodex.github.com/images/minion.png)
-![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat")
-![Alt text][id]
+  ![Minion](https://octodex.github.com/images/minion.png)
+  ![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat")
+  ![Alt text][id]
 
-[id]: https://octodex.github.com/images/dojocat.jpg  "The Dojocat"
-{{/mark-down}}
+  [id]: https://octodex.github.com/images/dojocat.jpg  "The Dojocat"
+  {{/mark-down}}
   `);
 
   const $component = this.$(':first-child');
@@ -122,52 +133,52 @@ console.log(foo(5));
 
 test('it renders extended markdown document w/ presets full', function(assert) {
   this.render(hbs`
-{{#mark-down presets="full"}}
-Superscript: 19^th^
-Subscript: H~2~O
-++Inserted text++
-==Marked text==
+  {{#mark-down presets="full"}}
+  Superscript: 19^th^
+  Subscript: H~2~O
+  ++Inserted text++
+  ==Marked text==
 
-Footnote 1 link[^first].
+  Footnote 1 link[^first].
 
-Footnote 2 link[^second].
+  Footnote 2 link[^second].
 
-Inline footnote^[Text of inline footnote] definition.
+  Inline footnote^[Text of inline footnote] definition.
 
-Duplicated footnote reference[^second].
+  Duplicated footnote reference[^second].
 
-[^first]: Footnote **can have markup**
+  [^first]: Footnote **can have markup**
 
-    and multiple paragraphs.
+      and multiple paragraphs.
 
-[^second]: Footnote text.
+  [^second]: Footnote text.
 
-Term 1
+  Term 1
 
-:   Definition 1
-with lazy continuation.
+  :   Definition 1
+  with lazy continuation.
 
-Term 2 with *inline markup*
+  Term 2 with *inline markup*
 
-:   Definition 2
+  :   Definition 2
 
-        { some code, part of Definition 2 }
+          { some code, part of Definition 2 }
 
-    Third paragraph of definition 2.
+      Third paragraph of definition 2.
 
-Compact style:
+  Compact style:
 
-Term 1
-  ~ Definition 1
+  Term 1
+    ~ Definition 1
 
-Term 2
-  ~ Definition 2a
-  ~ Definition 2b
+  Term 2
+    ~ Definition 2a
+    ~ Definition 2b
 
-It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
+  It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
 
-*[HTML]: Hyper Text Markup Language
-{{/mark-down}}
+  *[HTML]: Hyper Text Markup Language
+  {{/mark-down}}
   `);
 
   const $component = this.$(':first-child');
@@ -193,9 +204,9 @@ It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
 
 test('it renders inline link w/ option linkify set to true', function(assert) {
   this.render(hbs`
-{{#mark-down presets="full" options=(hash linkify=true)}}
-Autoconverted link https://github.com/nodeca/pica (enable linkify to see)
-{{/mark-down}}
+  {{#mark-down presets="full" options=(hash linkify=true)}}
+  Autoconverted link https://github.com/nodeca/pica (enable linkify to see)
+  {{/mark-down}}
   `);
 
   const $component = this.$(':first-child');
@@ -205,9 +216,9 @@ Autoconverted link https://github.com/nodeca/pica (enable linkify to see)
 
 test('it renders html w/ option html set to true', function(assert) {
   this.render(hbs`
-{{#mark-down presets="full" options=(hash html=true)}}
-<code>console.log("Hello, world!")</code>
-{{/mark-down}}
+  {{#mark-down presets="full" options=(hash html=true)}}
+  <code>console.log("Hello, world!")</code>
+  {{/mark-down}}
   `);
 
   const $component = this.$(':first-child');
@@ -217,29 +228,29 @@ test('it renders html w/ option html set to true', function(assert) {
 
 test('it renders highlighted code depends on option highlight', function(assert) {
   this.render(hbs`
-{{#mark-down}}
-\`\`\` js
-var foo = function (bar) {
-  return bar++;
-};
+  {{#mark-down}}
+  \`\`\` js
+  var foo = function (bar) {
+    return bar++;
+  };
 
-console.log(foo(5));
-\`\`\`
-{{/mark-down}}
+  console.log(foo(5));
+  \`\`\`
+  {{/mark-down}}
   `);
 
   assert.ok(this.$(':first-child').find('.hljs-keyword').length > 0, 'highlightjs has been enabled');
 
   this.render(hbs`
-{{#mark-down highlight=false}}
-\`\`\` js
-var foo = function (bar) {
-  return bar++;
-};
+  {{#mark-down highlight=false}}
+  \`\`\` js
+  var foo = function (bar) {
+    return bar++;
+  };
 
-console.log(foo(5));
-\`\`\`
-{{/mark-down}}
+  console.log(foo(5));
+  \`\`\`
+  {{/mark-down}}
   `);
 
   assert.ok(this.$(':first-child').find('.hljs-keyword').length == 0, 'highlightjs has been disabled');
@@ -247,11 +258,11 @@ console.log(foo(5));
 
 test('it renders htmlbars syntax as highlighted code properly', function(assert) {
   this.render(hbs`
-{{#mark-down}}
-\`\`\` htmlbars
-\\{{link-to "Home" "application" class="link-item" tagName="li"}}
-\`\`\`
-{{/mark-down}}
+  {{#mark-down}}
+  \`\`\` htmlbars
+  \\{{link-to "Home" "application" class="link-item" tagName="li"}}
+  \`\`\`
+  {{/mark-down}}
   `);
 
   assert.equal(this.$('.language-htmlbars').text().trim(),
@@ -259,13 +270,13 @@ test('it renders htmlbars syntax as highlighted code properly', function(assert)
     'inline helper has been processed');
 
   this.render(hbs`
-{{#mark-down}}
-\`\`\` htmlbars
-\\{{#link-to "application" class="link-item" tagName="li"}}
-Home
-\\{{/link-to}}
-\`\`\`
-{{/mark-down}}
+  {{#mark-down}}
+  \`\`\` htmlbars
+  \\{{#link-to "application" class="link-item" tagName="li"}}
+  Home
+  \\{{/link-to}}
+  \`\`\`
+  {{/mark-down}}
   `);
 
   assert.equal(this.$('.language-htmlbars').text().trim(),
@@ -274,22 +285,22 @@ Home
 {{/link-to}}`, 'block helper has been processed')
 
   this.render(hbs`
-{{#mark-down}}
-\`\`\` htmlbars
-\\{{!-- comment --}}
-\`\`\`
-{{/mark-down}}
+  {{#mark-down}}
+  \`\`\` htmlbars
+  \\{{!-- comment --}}
+  \`\`\`
+  {{/mark-down}}
   `);
 
   assert.equal(this.$('.language-htmlbars').text().trim(),
     '{{!-- comment --}}', 'comment helper has been processed')
 
   this.render(hbs`
-{{#mark-down}}
-\`\`\` htmlbars
-&lt;button type=&quot;button&quot; class=\\{{name}}&gt;Button&lt;/button&gt;
-\`\`\`
-{{/mark-down}}
+  {{#mark-down}}
+  \`\`\` htmlbars
+  &lt;button type=&quot;button&quot; class=\\{{name}}&gt;Button&lt;/button&gt;
+  \`\`\`
+  {{/mark-down}}
   `);
 
   assert.equal(this.$('.language-htmlbars').text().trim(),
@@ -300,28 +311,28 @@ Home
 test('it renders markdown which passed in as a property', function(assert) {
   this.set('model', {
     content: `
-# h1 Heading
+  # h1 Heading
 
-Some text with **BOLD** and _italic_, also \`inline code\`.
+  Some text with **BOLD** and _italic_, also \`inline code\`.
 
-> Blockquote
+  > Blockquote
 
-- Unordered list
+  - Unordered list
 
-1. Ordered list
+  1. Ordered list
 
-\`\`\` htmlbars
-\{{#link-to "index"}}
-<button type="button" class=\\{{name}}>Button</button>
-\{{/link-to}}
-\`\`\`
+  \`\`\` htmlbars
+  \{{#link-to "index"}}
+  <button type="button" class=\\{{name}}>Button</button>
+  \{{/link-to}}
+  \`\`\`
     `
   });
 
   this.render(hbs`
-{{#mark-down}}
-{{model.content}}
-{{/mark-down}}
+  {{#mark-down}}
+  {{model.content}}
+  {{/mark-down}}
   `)
 
   const $component = this.$(':first-child');
