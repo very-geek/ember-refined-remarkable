@@ -1,7 +1,7 @@
 {
   "name": "ember-refined-remarkable",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "0.1.0",
+  "description": "An ember addon wraps Remarkable markdown parser with code syntax highlighting support by highlight.js.",
   "directories": {
     "test": "tests"
   },
@@ -10,11 +10,11 @@
     "start": "ember server",
     "test": "ember try:each"
   },
-  "repository": "",
+  "repository": "very-geek/ember-refined-remarkable",
   "engines": {
-    "node": ">= 0.10.0"
+    "node": "stable"
   },
-  "author": "",
+  "author": "nightire <nightire@very-geek.com>",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.2",
@@ -36,7 +36,11 @@
     "loader.js": "^4.0.1"
   },
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "markdown",
+    "component",
+    "highlight",
+    "remarkable"
   ],
   "dependencies": {
     "ember-cli-babel": "^5.1.6",
