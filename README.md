@@ -116,7 +116,9 @@ Many users like indentations in block of HTMLBars helpers, such as:
 {{/my-component}}
 ```
 
-This is not a problem when using markup languages like HTML or HTMLBars, but this addon will parse whatever contents you put in the block as markdown text, and markdown text is _indentation sensitive_ format, so extra indentations can be problem when using this addon. Please don’t use indentations in markdown text except for reasonable needs (for example, indented code blocks).
+This is not a problem when using markup languages like HTML or HTMLBars, but this addon will parse whatever contents you put in the block as markdown text, and markdown text is _indentation sensitive_ format, so extra indentations will be a problem when using this addon (actually two spaces will be fine generally, but four spaces or a tab will definitely causing troubles).
+
+Please don’t use indentations in markdown text except for reasonable needs (for example, indented code blocks).
 
 #### 2. Avoid to parse HTMLBars in markdown code blocks
 
