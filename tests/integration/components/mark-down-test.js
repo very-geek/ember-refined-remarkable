@@ -296,3 +296,43 @@ Home
     '<button type="button" class={{name}}>Button</button>',
     'html tag with curly brace has been processed');
 });
+
+test('it renders markdown which passed in as a property', function(assert) {
+  this.set('model', {
+    content: `
+# h1 Heading
+
+Some text with **BOLD** and _italic_, also \`inline code\`.
+
+> Blockquote
+
+- Unordered list
+
+1. Ordered list
+
+\`\`\` htmlbars
+\{{#link-to "index"}}
+<button type="button" class=\\{{name}}>Button</button>
+\{{/link-to}}
+\`\`\`
+    `
+  });
+
+  this.render(hbs`
+{{#mark-down}}
+{{model.content}}
+{{/mark-down}}
+  `)
+
+  const $component = this.$(':first-child');
+  assert.ok($component.find('h1').length == 1, 'check for h1 tag');
+  assert.ok($component.find('p').length == 2, 'check for p tag');
+  assert.ok($component.find('blockquote').length == 1, 'check for blockquote tag');
+  assert.ok($component.find('strong').length == 1, 'check for strong tag');
+  assert.ok($component.find('em').length == 1, 'check for em tag');
+  assert.ok($component.find('p > code').length == 1, 'check for inline code tag');
+  assert.ok($component.find('ul').length == 1, 'check for ul tag');
+  assert.ok($component.find('ol').length == 1, 'check for ol tag');
+  assert.ok($component.find('li').length == 2, 'check for li tag');
+  assert.ok($component.find('pre > code').length == 1, 'check for block code tag');
+});
