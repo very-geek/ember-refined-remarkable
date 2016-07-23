@@ -12,8 +12,6 @@ test('it renders inline will shows a friendly warning', function(assert) {
     `This component only support block rendering, inline rendering will be useless.
 这个组件仅支持块级方式渲染，内联方式渲染将毫无作用。\n`,
     'friendly warning has been shown');
-
-  console.log(this.$(':first-child')[0]);
 });
 
 test('it renders regular markdown document', function(assert) {
