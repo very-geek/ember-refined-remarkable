@@ -1,4 +1,4 @@
-# Ember-refined-remarkable [![Build Status](https://travis-ci.org/very-geek/ember-refined-remarkable.svg?branch=master)](https://travis-ci.org/very-geek/ember-refined-remarkable)
+# Ember-refined-remarkable [![Build Status](https://travis-ci.org/very-geek/ember-refined-remarkable.svg?branch=master)](https://travis-ci.org/very-geek/ember-refined-remarkable) [![Ember Observer Score](https://emberobserver.com/badges/ember-refined-remarkable.svg)](https://emberobserver.com/addons/ember-refined-remarkable)
 
 An ember addon to wrap the famous markdown parsing library [remarkable](https://github.com/jonschlinkert/remarkable) and provides a simple component to render any markdown text in your ember application(s). It also integrate with [highlight.js](https://highlightjs.org/) to support code syntax highlighting.
 
