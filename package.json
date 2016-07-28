@@ -1,6 +1,6 @@
 {
   "name": "ember-refined-remarkable",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "An ember addon wraps Remarkable markdown parser with code syntax highlighting support by highlight.js.",
   "directories": {
     "test": "tests"
