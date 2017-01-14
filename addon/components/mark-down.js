@@ -1,19 +1,19 @@
-import Ember from 'ember';
-import layout from '../templates/components/mark-down';
+import Component from 'ember-component';
+import layout from 'ember-refined-remarkable/templates/components/mark-down';
 import Remarkable from 'remarkable';
 import HighlightJS from 'highlight';
 
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
 
-  didReceiveAttrs() {
+  init() {
     this._super(...arguments);
 
     const presets = this.attrs.presets || 'default';
     const options = this.attrs.options || {};
 
     if (this.getWithDefault('highlight', true)) {
-      options.highlight = function highlight(source, language) {
+      options.highlight =(source, language) => {
         if (language && HighlightJS.getLanguage(language)) {
           return HighlightJS.highlight(language, source).value;
         }
@@ -25,12 +25,10 @@ export default Ember.Component.extend({
   },
 
   didInsertElement() {
-    this._super(...arguments);
-
     this.element.innerHTML = this.remarkable.render(
       this.attrs.options && this.attrs.options.html
-      ? this.element.innerHTML
-      : this.element.textContent
+        ? this.element.innerHTML
+        : this.element.textContent
     );
   }
 });
